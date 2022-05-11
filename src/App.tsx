@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import Todolist from "./Todolist";
+import {v1} from "uuid";
 
 export type TodolistType = {
     id: string
@@ -16,11 +17,11 @@ export type TaskType = {
 
 function App() {
     const [tasks,setTasks]= useState( [
-        {id: '1', title: 'Beer', isDone: true},
-        {id: '2', title: 'Milk', isDone: true},
-        {id: '3', title: 'Beer', isDone: true},
+        {id: v1(), title: 'Beer', isDone: true},
+        {id: v1(), title: 'Milk', isDone: true},
+        {id: v1(), title: 'Beer', isDone: true},
     ])
-    const [filter,setFilter] = useState<FilterValuesType>('completed')
+    const [filter,setFilter] = useState<FilterValuesType>('all')
 
     const todolists: TodolistType[] = [
         {id: '1', title: 'What to buy', filter: 'all'}
@@ -31,6 +32,9 @@ function App() {
     const changeFilter = (newValue:FilterValuesType) => {
         setFilter(newValue)
     }
+    const addTask = (title:string)=>{
+        setTasks([{id:v1(),title,isDone: false}, ...tasks])
+    }
     return (
         <div className="App">
             <Todolist
@@ -39,6 +43,7 @@ function App() {
                 tasks={tasks}
                 removeTask = {removeTask}
                 changeFilter = {changeFilter}
+                addTask = {addTask}
             />
         </div>
     )
