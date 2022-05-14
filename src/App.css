@@ -6,3 +6,12 @@
 .App > div {
   margin-right: 50px;
 }
+.active{
+  background-color: darkseagreen;
+}
+.completed{
+  text-decoration: line-through;
+}
+.error{
+  border-color: red;
+}
