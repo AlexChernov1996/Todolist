@@ -1,34 +1,40 @@
-import React, {ChangeEvent,KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {TextField} from "@material-ui/core";
 
 type EditableSpanPropsType = {
     title: string
-    changeTitle:(title:string)=>void
+    changeTitle: (title: string) => void
 }
 export const EditableSpan = (props: EditableSpanPropsType) => {
     const [title, setTitle] = useState('')
     const [editable, setEditable] = useState(false)
-    const onDoubleClickOnEditableMode =() => setEditable(true)
+    const onDoubleClickOnEditableMode = () => setEditable(true)
     const onBlurEditableModeOff = () => {
         setEditable(false)
-        props.changeTitle(title)
+        if(title.trim()){
+            props.changeTitle(title)
+        }
+
     }
-    const onKeyPressChangeTitle = (e:KeyboardEvent<HTMLInputElement>)=>{
-       if(e.key ==="Enter"){
-           setEditable(false)
-           props.changeTitle(title)
-           setTitle('')
-       }
+    const onKeyPressChangeTitle = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            setEditable(false)
+            props.changeTitle(title)
+            setTitle('')
+        }
     }
-   const editableInputChange=(e:ChangeEvent<HTMLInputElement>)=>{
+    const editableInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-   }
+    }
     return (
         <>
             {editable
-                ? <input autoFocus value={title}
-                         onBlur={onBlurEditableModeOff}
-                         onChange={editableInputChange}
-                         onKeyPress={onKeyPressChangeTitle}
+                ? <TextField autoFocus
+                             value={title}
+                             onBlur={onBlurEditableModeOff}
+                             onChange={editableInputChange}
+                             onKeyPress={onKeyPressChangeTitle}
+
                 />
                 : <span onDoubleClick={onDoubleClickOnEditableMode}>{props.title}</span>}
         </>
