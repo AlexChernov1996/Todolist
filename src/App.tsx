@@ -7,7 +7,7 @@ import {AppBar, Button, Container, IconButton, Toolbar, Typography, Grid, Paper}
 import MenuIcon from '@material-ui/icons/Menu';
 
 export type FilterValuesType = "all" | "active" | "completed";
-export type todolistsType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -18,7 +18,7 @@ function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<todolistsType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
