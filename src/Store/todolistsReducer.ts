@@ -4,7 +4,9 @@ import {v1} from "uuid";
 export type AddTodolistAT = {
     type: "ADD-TODOLIST"
     title: string
+    todolistId: string
 }
+
 export type DeleteTodolistAT = {
     type: "DELETE-TODOLIST"
     id: string
@@ -23,7 +25,7 @@ type ActionsType = AddTodolistAT | DeleteTodolistAT | ChangeTodolistTitleAT | Ch
 export const todolistsReducer = (todolists: TodolistType[], action: ActionsType) => {
     switch (action.type) {
         case "ADD-TODOLIST":
-            return [...todolists, {id: v1(), title: action.title, filter: 'all'}]
+            return [...todolists, {id: action.todolistId, title: action.title, filter: 'all'}]
         case "DELETE-TODOLIST":
             return todolists.filter(t => t.id !== action.id)
         case "CHANGE-TODOLIST-TITLE":
@@ -42,5 +44,6 @@ export const DeleteTodolistAC = (id: string): DeleteTodolistAT => {
     return {type: "DELETE-TODOLIST", id}
 }
 export const AddTodolistAC = (title: string): AddTodolistAT => {
-    return {type: "ADD-TODOLIST", title}
+    let todolistId = v1()
+    return {type: "ADD-TODOLIST", title:title, todolistId:todolistId}
 }
