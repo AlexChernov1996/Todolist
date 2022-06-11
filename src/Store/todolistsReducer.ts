@@ -22,7 +22,7 @@ export type ChangeTodolistFilterAT = {
     filter: FilterValuesType
 }
 type ActionsType = AddTodolistAT | DeleteTodolistAT | ChangeTodolistTitleAT | ChangeTodolistFilterAT
-export const todolistsReducer = (todolists: TodolistType[], action: ActionsType) => {
+export const todolistsReducer = (todolists: TodolistType[], action: ActionsType): TodolistType[] => {
     switch (action.type) {
         case "ADD-TODOLIST":
             return [...todolists, {id: action.todolistId, title: action.title, filter: 'all'}]
@@ -34,16 +34,16 @@ export const todolistsReducer = (todolists: TodolistType[], action: ActionsType)
             return todolists.map(t => t.id === action.id ? {...t, filter: action.filter} : t)
     }
 }
-export const ChangeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterAT => {
+export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterAT => {
     return {type: "CHANGE-TODOLIST-FILTER", id, filter}
 }
-export const ChangeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleAT => {
+export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleAT => {
     return {type: "CHANGE-TODOLIST-TITLE", id, title}
 }
-export const DeleteTodolistAC = (id: string): DeleteTodolistAT => {
+export const removeTodolistAC = (id: string): DeleteTodolistAT => {
     return {type: "DELETE-TODOLIST", id}
 }
-export const AddTodolistAC = (title: string): AddTodolistAT => {
+export const addTodolistAC = (title: string): AddTodolistAT => {
     let todolistId = v1()
-    return {type: "ADD-TODOLIST", title:title, todolistId:todolistId}
+    return {type: "ADD-TODOLIST", title,  todolistId}
 }

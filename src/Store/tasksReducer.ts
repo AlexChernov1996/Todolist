@@ -1,8 +1,6 @@
-import {FilterValuesType, TasksStateType, TodolistType} from "../App";
+import { TasksStateType} from "../App";
 import {v1} from "uuid";
-import {TaskType} from "../Todolist";
-import {AddTodolistAT, DeleteTodolistAC, DeleteTodolistAT} from "./todolistsReducer";
-import {Delete} from "@material-ui/icons";
+import {AddTodolistAT,  DeleteTodolistAT} from "./todolistsReducer";
 
 export type DeleteTaskAT = ReturnType<typeof removeTaskAC>
 export type AddTaskAT = ReturnType<typeof addTaskAC>
