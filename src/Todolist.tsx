@@ -1,10 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton, List, ListItem} from "@material-ui/core";
 import {Checkbox} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
+
 export type TaskType = {
     id: string
     title: string
@@ -39,9 +40,9 @@ export function Todolist(props: PropsType) {
     return <div>
         <h3>
             <EditableSpan title={props.title} changeTitle={changeTodolistTitle}/>
-                <IconButton aria-label="delete" onClick={() => props.removeTodolist(props.todolistId)}>
-                    <DeleteIcon fontSize="small" />
-                </IconButton>
+            <IconButton aria-label="delete" onClick={() => props.removeTodolist(props.todolistId)}>
+                <DeleteIcon fontSize="small"/>
+            </IconButton>
 
         </h3>
         <AddItemForm addItem={addTask}/>
@@ -56,8 +57,10 @@ export function Todolist(props: PropsType) {
                         props.changeTaskTitle(props.todolistId, t.id, title)
                     }
                     return <ListItem
-                        style={{padding:"0",
-                        height:"30px"}}
+                        style={{
+                            padding: "0",
+                            height: "30px"
+                        }}
                         key={t.id}
                         className={t.isDone ? "is-done" : ""}>
                         <Checkbox
@@ -66,7 +69,7 @@ export function Todolist(props: PropsType) {
                             checked={t.isDone}/>
                         <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
                         <IconButton aria-label="delete" onClick={onClickHandler}>
-                            <DeleteIcon fontSize="small" />
+                            <DeleteIcon fontSize="small"/>
                         </IconButton>
                     </ListItem>
                 })

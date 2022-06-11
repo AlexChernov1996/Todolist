@@ -1,32 +1,20 @@
-import { TasksStateType} from "../App";
 import {v1} from "uuid";
-import {AddTodolistAT,  DeleteTodolistAT} from "./todolistsReducer";
+import {AddTodolistAT, DeleteTodolistAT} from "./todolistsReducer";
+import {TaskType} from "../Todolist";
 
 export type DeleteTaskAT = ReturnType<typeof removeTaskAC>
 export type AddTaskAT = ReturnType<typeof addTaskAC>
 export type changeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>
 export type changeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>
-let todolistID1 = v1()
-let todolistID2 = v1()
-let initialState = {
-    [todolistID1]: [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Rest API", isDone: false},
-        {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todolistID2]: [
-        {id: v1(), title: "HTML&CSS2", isDone: true},
-        {id: v1(), title: "JS2", isDone: true},
-        {id: v1(), title: "ReactJS2", isDone: false},
-        {id: v1(), title: "Rest API2", isDone: false},
-        {id: v1(), title: "GraphQL2", isDone: false},
-    ]
+
+export type TasksStateType = {
+    [todolistId: string]: TaskType[]
 }
+let initialState: TasksStateType = {}
 
 type ActionsType = DeleteTaskAT | AddTaskAT | changeTaskStatusAT | changeTaskTitleAT | AddTodolistAT | DeleteTodolistAT
-export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType) => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
+    debugger
     switch (action.type) {
         case "DELETE-TASK":
             return {
@@ -60,8 +48,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             let newState = {...state}
             delete newState[action.id]
             return newState
-
-
         default:
             return state
     }
