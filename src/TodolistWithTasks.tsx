@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo, useCallback} from 'react';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton, List, ListItem} from "@material-ui/core";
@@ -19,21 +19,22 @@ type PropsType = {
     todolist: TodolistType
 }
 
-export function TodolistWithTasks({todolist}: PropsType) {
+export const TodolistWithTasks= memo(({todolist}: PropsType)=> {
+    console.log('todolist')
     let tasks = useSelector<RootAppType, TaskType[]>(state => state.tasks[todolist.id])
     let dispatch = useDispatch()
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(title, todolist.id))
-    }
-    const onAllClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id, "all"));
-    const onActiveClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id, "active"));
-    const onCompletedClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id, "completed"));
-    const changeTodolistTitle = (title: string) => {
+    }, [dispatch])
+    const onAllClickHandler = useCallback(() => dispatch(changeTodolistFilterAC(todolist.id, "all")), [dispatch]);
+    const onActiveClickHandler = useCallback(() => dispatch(changeTodolistFilterAC(todolist.id, "active")), [dispatch]);
+    const onCompletedClickHandler = useCallback(() => dispatch(changeTodolistFilterAC(todolist.id, "completed")), [dispatch]);
+    const changeTodolistTitle = useCallback((title: string) => {
         dispatch(changeTodolistTitleAC(todolist.id, title))
-    }
-    const removeTodolistHandler = () => {
+    }, [dispatch])
+    const removeTodolistHandler = useCallback(() => {
         dispatch(removeTodolistAC(todolist.id))
-    }
+    }, [dispatch])
     let tasksForTodolist = tasks
     if (todolist.filter === "active") {
         tasksForTodolist = tasks.filter(t => !t.isDone);
@@ -99,4 +100,4 @@ export function TodolistWithTasks({todolist}: PropsType) {
             </Button>
         </div>
     </div>
-}
+})

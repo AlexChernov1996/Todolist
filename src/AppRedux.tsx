@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, IconButton, Toolbar, Typography, Grid, Paper} from "@material-ui/core";
@@ -19,11 +19,12 @@ export type TodolistType = {
 function AppRedux() {
     let todolists = useSelector<RootAppType, TodolistType[]>(store => store.todolists)
     const dispatch = useDispatch()
-    function addTodolist(title: string) {
-        dispatch(addTodolistAC(title))
-    }
 
-    return (<div className="App">
+    const addTodolist = useCallback((title: string)=> {
+        dispatch(addTodolistAC(title))
+    },[dispatch])
+    return (
+        <div className="App">
             <AppBar position={"static"}>
                 <Toolbar style={{justifyContent: "space-between"}}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
@@ -42,9 +43,8 @@ function AppRedux() {
                 <Grid container>
                     {todolists.map((t) => {
 
-                        return <Paper elevation={3} style={{margin: '20px 10px', padding: "20px"}}>
+                        return <Paper key={t.id} elevation={3} style={{margin: '20px 10px', padding: "20px"}}>
                             <TodolistWithTasks
-                                key={t.id}
                                 todolist={t}
                             /></Paper>
                     })}

@@ -1,12 +1,13 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import {KeyboardEvent} from 'react'
-import {Button, Icon, TextField} from "@material-ui/core";
+import {Button, TextField} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 
 type AddItemPropsType = {
     addItem: (title: string) => void
 }
-export const AddItemForm = (props: AddItemPropsType) => {
+export const AddItemForm =memo( (props: AddItemPropsType) => {
+    console.log('addItemForm')
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,6 @@ export const AddItemForm = (props: AddItemPropsType) => {
             {error && <div className="error-message">{error}</div>}
         </div>
     );
-};
+})
 
 

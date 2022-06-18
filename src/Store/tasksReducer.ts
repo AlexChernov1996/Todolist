@@ -14,7 +14,7 @@ let initialState: TasksStateType = {}
 
 type ActionsType = DeleteTaskAT | AddTaskAT | changeTaskStatusAT | changeTaskTitleAT | AddTodolistAT | DeleteTodolistAT
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
-    debugger
+
     switch (action.type) {
         case "DELETE-TASK":
             return {
