@@ -15,12 +15,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return state
     }
 }
-
 // actions
-
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
-
 
 // thunks
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>) => {
